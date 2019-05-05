@@ -1,0 +1,31 @@
+﻿<#@ template language="C#" debug="true"  #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.dll" #>
+<#@ assembly name="SchemaExplorer" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="TCM.Mysql.CodeGenerate" #>
+
+<#@ import namespace="SchemaExplorer"#>
+<#@ parameter name="tableName" type="System.String" #>
+<#@ parameter name="Columns" type="SchemaExplorer.ColumnSchema[]" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace TCM.APIService.Model
+{
+	public class <#=tableName#>
+    {
+        <#for(int i=0;i<Columns.Length; i++){ #>
+        /// <summary>
+        /// <#if(Columns[i].Description.Length>0){#><#=Columns[i].Description#><#}#>  
+        /// </summary>
+        public <#=TypeConvert.CSharpType(Columns[i])#> <#=Columns[i].Name #> { get;set; }
+        <# } #>
+
+    }
+}
