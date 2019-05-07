@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeHelper.cs" />
     <Compile Include="ConstantHelper.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -111,6 +112,11 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="TypeConvert.cs" />
+    <Compile Include="UpSert.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpSert.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,6 +163,10 @@
     <Content Include="RuntimeTextTemplate1.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RuntimeTextTemplate1.cs</LastGenOutput>
+    </Content>
+    <Content Include="UpSert.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>UpSert.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

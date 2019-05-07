@@ -1,0 +1,77 @@
+﻿<#@ template language="C#" debug="true"  #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.dll" #>
+<#@ assembly name="SchemaExplorer" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="TCM.Mysql.CodeGenerate" #>
+
+<#@ import namespace="SchemaExplorer"#>
+<#@ parameter name="tableName" type="System.String" #>
+<#@ parameter name="Columns" type="SchemaExplorer.ColumnSchema[]" #>
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using MySql.Data.MySqlClient;
+
+namespace TCM.APIService.DAL
+{
+	/// <summary>
+    /// 根据传入Model
+	/// </summary>
+	public class <#=tableName#>Repository
+    {
+		 /// <summary>
+		 /// 增，根据传入Model
+		 /// </summary>
+         public int Add (<#=tableName#> model)
+		 {
+		     int result = 0;
+			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
+             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>);";
+			 ExecuteReader((conn) =>
+            {
+                result = conn.Execute(sql, model);
+                //conn.Query()
+            });
+            return result;
+		 }
+
+		 /// <summary>
+		/// 改，根据传入Model
+		/// </summary>
+		  public int Update (<#=tableName#> model)
+		 {
+		     int result = 0;
+			 string sql = @"update <#=tableName#> 
+                     set <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #>
+                     where <#= string.Join(" and ",CodeHelper.GetSqlWhereId(Columns)) #>";
+			 ExecuteReader((conn) =>
+            {
+                result = conn.Execute(sql, model);
+                //conn.Query()
+            });
+            return result;
+		 }
+
+		/// <summary>
+		/// 删，根据传入Model
+		/// </summary>
+		public int DeleteById(<#=tableName#> model)
+		{
+			int result = 0;
+			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";
+ 
+			 ExecuteReader((conn) =>
+            {
+                result = conn.Execute(sql, model);
+                //conn.Query()
+            });
+        
+			return result;
+		}	
+    }
+	
+}

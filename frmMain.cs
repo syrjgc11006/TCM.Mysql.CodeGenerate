@@ -104,8 +104,20 @@ namespace TCM.Mysql.CodeGenerate
             template.Session = new Microsoft.VisualStudio.TextTemplating.TextTemplatingSession();
             template.Session["tableName"] = selectedTable;
             template.Session["Columns"] = columnSchemas;
+            template.Session["tableDesciption"] = tableSchema.Description;
             template.Initialize();
             rtClass.Text = template.TransformText();
+            label1.Visible = false;
+
+            //insert
+            var insertTemplate = Activator.CreateInstance<UpSert>();
+
+            insertTemplate.Session = new Microsoft.VisualStudio.TextTemplating.TextTemplatingSession();
+            insertTemplate.Session["tableName"] = selectedTable;
+            insertTemplate.Session["Columns"] = columnSchemas;
+            insertTemplate.Session["tableDesciption"] = tableSchema.Description;
+            insertTemplate.Initialize();
+            rtb_dal.Text = insertTemplate.TransformText();
             label1.Visible = false;
         }
 
@@ -151,6 +163,16 @@ namespace TCM.Mysql.CodeGenerate
                 default:
                     return "object";
             }
+        }
+
+        private void rtClass_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lv_tables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
