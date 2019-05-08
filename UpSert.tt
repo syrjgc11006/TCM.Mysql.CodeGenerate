@@ -3,6 +3,7 @@
 <#@ assembly name="System.dll" #>
 <#@ assembly name="SchemaExplorer" #>
 <#@ import namespace="System" #>
+<#@ import namespace="System.Data" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="TCM.Mysql.CodeGenerate" #>
 
@@ -26,50 +27,36 @@ namespace TCM.APIService.DAL
 		 /// <summary>
 		 /// 增，根据传入Model
 		 /// </summary>
-         public int Add (<#=tableName#> model)
+         public int Add<#=tableName#>(this IDbConnection conn, <#=tableName#> model)
 		 {
 		     int result = 0;
 			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
              values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>);";
-			 ExecuteReader((conn) =>
-            {
-                result = conn.Execute(sql, model);
-                //conn.Query()
-            });
-            return result;
+             result = conn.Execute(sql, model);
+             return result;
 		 }
 
 		 /// <summary>
 		/// 改，根据传入Model
 		/// </summary>
-		  public int Update (<#=tableName#> model)
+		  public int Update<#=tableName#>(this IDbConnection conn,<#=tableName#> model)
 		 {
 		     int result = 0;
 			 string sql = @"update <#=tableName#> 
                      set <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #>
                      where <#= string.Join(" and ",CodeHelper.GetSqlWhereId(Columns)) #>";
-			 ExecuteReader((conn) =>
-            {
-                result = conn.Execute(sql, model);
-                //conn.Query()
-            });
-            return result;
+             result = conn.Execute(sql, model);
+			 return result;
 		 }
 
 		/// <summary>
 		/// 删，根据传入Model
 		/// </summary>
-		public int DeleteById(<#=tableName#> model)
+		public int Delete<#=tableName#>ById(this IDbConnection conn,<#=tableName#> model)
 		{
 			int result = 0;
 			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";
- 
-			 ExecuteReader((conn) =>
-            {
-                result = conn.Execute(sql, model);
-                //conn.Query()
-            });
-        
+            result = conn.Execute(sql, model);
 			return result;
 		}	
     }

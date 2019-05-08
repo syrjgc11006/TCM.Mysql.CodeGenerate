@@ -23,16 +23,26 @@ namespace TCM.Mysql.CodeGenerate
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.txt_DbString.Text = connectstr;
+            //RefreshDb();
+        }
+
+        private void RefreshDb(string connectionString)
+        {
+            lv_tables.Items.Clear();
             label1.Visible = false;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                MessageBox.Show("数据库字符串不能为空");
+            }
             try
             {
-              
-                string dbname = mySQLSchemaProvider.GetDatabaseName(connectstr);
+                string dbname = mySQLSchemaProvider.GetDatabaseName(connectionString);
 
-                DatabaseSchema databaseSchema = new DatabaseSchema(mySQLSchemaProvider, connectstr);
+                DatabaseSchema databaseSchema = new DatabaseSchema(mySQLSchemaProvider, connectionString);
 
                 //获取所有表
-                TableSchema[] tableSchemas = mySQLSchemaProvider.GetTables(connectstr, databaseSchema);
+                TableSchema[] tableSchemas = mySQLSchemaProvider.GetTables(connectionString, databaseSchema);
 
                 lv_tables.View = View.List;
                 foreach (var item in tableSchemas)
@@ -54,9 +64,9 @@ namespace TCM.Mysql.CodeGenerate
         private void lv_tables_DoubleClick(object sender, EventArgs e)
         {
             string selectedTable = lv_tables.SelectedItems[0].Text;  //选中的表
-            DatabaseSchema databaseSchema = new DatabaseSchema(mySQLSchemaProvider, connectstr);
-            TableSchema tableSchema = new TableSchema(databaseSchema, selectedTable, "dbo",DateTime.Now);
-            ColumnSchema[] columnSchemas= mySQLSchemaProvider.GetTableColumns(connectstr, tableSchema);
+            DatabaseSchema databaseSchema = new DatabaseSchema(mySQLSchemaProvider, this.txt_DbString.Text);
+            TableSchema tableSchema = new TableSchema(databaseSchema, selectedTable, "dbo", DateTime.Now);
+            ColumnSchema[] columnSchemas = mySQLSchemaProvider.GetTableColumns(this.txt_DbString.Text, tableSchema);
 
             //方法一：
             //string[] members = new string[columnSchemas.Length];
@@ -173,6 +183,25 @@ namespace TCM.Mysql.CodeGenerate
         private void lv_tables_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 刷新数据库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshDb(txt_DbString.Text);
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txt_DbString.Text))
+            {
+                MessageBox.Show("数据库字符串不能为空");
+            }
+            RefreshDb(txt_DbString.Text);
         }
     }
 }
