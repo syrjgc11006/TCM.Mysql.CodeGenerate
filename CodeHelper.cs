@@ -28,7 +28,7 @@ namespace TCM.Mysql.CodeGenerate
             List<string> propertyNameList = new List<string>();
             foreach (ColumnSchema property in columns)
             {
-                if (property.IsPrimaryKeyMember&&property.Name.ToLower()=="id")
+                if (property.IsPrimaryKeyMember && property.Name.ToLower() == "id")
                 {
                     continue;
                 }
@@ -55,7 +55,17 @@ namespace TCM.Mysql.CodeGenerate
                 if (property.IsPrimaryKeyMember)
                 {
                     propertyList.Add(property.Name + "=@" + property.Name);
-                } 
+                }
+            }
+            return propertyList.ToArray();
+        }
+
+        public static string[] GetSqlSelect(ColumnSchema[] columns)
+        {
+            List<string> propertyList = new List<string>();
+            foreach (ColumnSchema property in columns)
+            {
+                propertyList.Add(property.Name);
             }
             return propertyList.ToArray();
         }

@@ -11,23 +11,43 @@
 <#@ parameter name="tableName" type="System.String" #>
 <#@ parameter name="Columns" type="SchemaExplorer.ColumnSchema[]" #>
 
+using MySql.Data.MySqlClient;
+using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Text;
+using System.Linq;
+using TCM.APIService.Model;
 
 namespace TCM.APIService.DAL
 {
 	/// <summary>
     /// 根据传入Model
 	/// </summary>
-	public class <#=tableName#>Repository
+	public static class <#=tableName#>Dal
     {
+		 public static IList<<#=tableName#>> GetList<#=tableName#>(this IDbConnection conn)
+		 {
+			 string sql = @"select <#= string.Join(",",CodeHelper.GetSqlSelect(Columns)) #> from  <#=tableName#>;";
+			 return conn.Query<<#=tableName#>>(sql).ToList();
+		 }
 		 /// <summary>
 		 /// 增，根据传入Model
 		 /// </summary>
-         public int Add<#=tableName#>(this IDbConnection conn, <#=tableName#> model)
+         public static int Add<#=tableName#>(this IDbConnection conn, <#=tableName#> model)
+		 {
+		     int result = 0;
+			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
+             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>);";
+             result = conn.Execute(sql, model);
+             return result;
+		 }
+
+		 /// <summary>
+		 /// 批量新增，根据传入Model
+		 /// </summary>
+         public static int Add<#=tableName#>(this IDbConnection conn, List<<#=tableName#>> model)
 		 {
 		     int result = 0;
 			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
@@ -39,7 +59,20 @@ namespace TCM.APIService.DAL
 		 /// <summary>
 		/// 改，根据传入Model
 		/// </summary>
-		  public int Update<#=tableName#>(this IDbConnection conn,<#=tableName#> model)
+		  public static int Update<#=tableName#>(this IDbConnection conn,<#=tableName#> model)
+		 {
+		     int result = 0;
+			 string sql = @"update <#=tableName#> 
+                     set <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #>
+                     where <#= string.Join(" and ",CodeHelper.GetSqlWhereId(Columns)) #>";
+             result = conn.Execute(sql, model);
+			 return result;
+		 }
+
+		  /// <summary>
+		/// 批量修改，根据传入Model
+		/// </summary>
+		 public static int Update<#=tableName#>(this IDbConnection conn,List<<#=tableName#>> model)
 		 {
 		     int result = 0;
 			 string sql = @"update <#=tableName#> 
@@ -52,7 +85,18 @@ namespace TCM.APIService.DAL
 		/// <summary>
 		/// 删，根据传入Model
 		/// </summary>
-		public int Delete<#=tableName#>ById(this IDbConnection conn,<#=tableName#> model)
+		public static int Delete<#=tableName#>ById(this IDbConnection conn,<#=tableName#> model)
+		{
+			int result = 0;
+			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";
+            result = conn.Execute(sql, model);
+			return result;
+		}	
+
+		/// <summary>
+		/// 批量删除，根据传入Model
+		/// </summary>
+		public static int Delete<#=tableName#>ById(this IDbConnection conn,<#=tableName#> model)
 		{
 			int result = 0;
 			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";
