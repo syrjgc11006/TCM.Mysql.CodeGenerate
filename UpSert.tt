@@ -96,7 +96,7 @@ namespace TCM.APIService.DAL
 		/// <summary>
 		/// 批量删除，根据传入Model
 		/// </summary>
-		public static int Delete<#=tableName#>ById(this IDbConnection conn,<#=tableName#> model)
+		public static int Delete<#=tableName#>ById(this IDbConnection conn,List<<#=tableName#>> model)
 		{
 			int result = 0;
 			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";

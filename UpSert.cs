@@ -273,14 +273,14 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write("ById(this IDbConnection conn,");
+            this.Write("ById(this IDbConnection conn,List<");
             
             #line 99 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
-            this.Write(" model)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring sql = @\"delete from ");
+            this.Write("> model)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring sql = @\"delete from ");
             
             #line 102 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
