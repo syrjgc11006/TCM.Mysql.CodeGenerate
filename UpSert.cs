@@ -123,76 +123,90 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write(");\";\r\n             result = conn.Execute(sql, model);\r\n             return result" +
-                    ";\r\n\t\t }\r\n\r\n\t\t /// <summary>\r\n\t\t /// 批量新增，根据传入Model\r\n\t\t /// </summary>\r\n         " +
-                    "public static int Add");
+            this.Write(")on duplicate key update \r\n                     ");
             
-            #line 50 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 43 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlUpdateSet(Columns))));
+            
+            #line default
+            #line hidden
+            this.Write("  ;\";\r\n             result = conn.Execute(sql, model);\r\n             return resul" +
+                    "t;\r\n\t\t }\r\n\r\n\t\t /// <summary>\r\n\t\t /// 批量新增，根据传入Model\r\n\t\t /// </summary>\r\n        " +
+                    " public static int Add");
+            
+            #line 51 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("(this IDbConnection conn, List<");
             
-            #line 50 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 51 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("> model)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t string sql = @\"insert into ");
             
-            #line 53 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 54 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 53 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 54 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlInsertInto(Columns))));
             
             #line default
             #line hidden
             this.Write(") \r\n             values(");
             
-            #line 54 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 55 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlInsertValue(Columns))));
             
             #line default
             #line hidden
-            this.Write(");\";\r\n             result = conn.Execute(sql, model);\r\n             return result" +
+            this.Write(")on duplicate key update \r\n                     ");
+            
+            #line 56 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlUpdateSet(Columns))));
+            
+            #line default
+            #line hidden
+            this.Write(" ;\";\r\n             result = conn.Execute(sql, model);\r\n             return result" +
                     ";\r\n\t\t }\r\n\r\n\t\t /// <summary>\r\n\t\t/// 改，根据传入Model\r\n\t\t/// </summary>\r\n\t\t  public sta" +
                     "tic int Update");
             
-            #line 62 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 64 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("(this IDbConnection conn,");
             
-            #line 62 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 64 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" model)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t string sql = @\"update ");
             
-            #line 65 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 67 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" \r\n                     set ");
             
-            #line 66 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 68 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlUpdateSet(Columns))));
             
             #line default
             #line hidden
             this.Write("\r\n                     where ");
             
-            #line 67 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 69 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" and ",CodeHelper.GetSqlWhereId(Columns))));
             
             #line default
@@ -201,35 +215,35 @@ namespace TCM.APIService.DAL
                     "\t\t  /// <summary>\r\n\t\t/// 批量修改，根据传入Model\r\n\t\t/// </summary>\r\n\t\t public static int " +
                     "Update");
             
-            #line 75 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 77 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("(this IDbConnection conn,List<");
             
-            #line 75 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 77 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("> model)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t string sql = @\"update ");
             
-            #line 78 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 80 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" \r\n                     set ");
             
-            #line 79 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 81 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",CodeHelper.GetSqlUpdateSet(Columns))));
             
             #line default
             #line hidden
             this.Write("\r\n                     where ");
             
-            #line 80 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 82 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" and ",CodeHelper.GetSqlWhereId(Columns))));
             
             #line default
@@ -238,28 +252,28 @@ namespace TCM.APIService.DAL
                     "\t\t/// <summary>\r\n\t\t/// 删，根据传入Model\r\n\t\t/// </summary>\r\n\t\tpublic static int Delete" +
                     "");
             
-            #line 88 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 90 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("ById(this IDbConnection conn,");
             
-            #line 88 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 90 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" model)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring sql = @\"delete from ");
             
-            #line 91 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 93 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" WHERE ");
             
-            #line 91 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 93 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns))));
             
             #line default
@@ -268,28 +282,28 @@ namespace TCM.APIService.DAL
                     "\t/// <summary>\r\n\t\t/// 批量删除，根据传入Model\r\n\t\t/// </summary>\r\n\t\tpublic static int Dele" +
                     "te");
             
-            #line 99 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 101 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("ById(this IDbConnection conn,List<");
             
-            #line 99 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 101 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("> model)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring sql = @\"delete from ");
             
-            #line 102 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 104 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write(" WHERE ");
             
-            #line 102 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
+            #line 104 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns))));
             
             #line default

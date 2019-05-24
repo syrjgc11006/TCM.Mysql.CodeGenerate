@@ -39,7 +39,8 @@ namespace TCM.APIService.DAL
 		 {
 		     int result = 0;
 			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
-             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>);";
+             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>)on duplicate key update 
+                     <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #>  ;";
              result = conn.Execute(sql, model);
              return result;
 		 }
@@ -51,7 +52,8 @@ namespace TCM.APIService.DAL
 		 {
 		     int result = 0;
 			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
-             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>);";
+             values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>)on duplicate key update 
+                     <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #> ;";
              result = conn.Execute(sql, model);
              return result;
 		 }
