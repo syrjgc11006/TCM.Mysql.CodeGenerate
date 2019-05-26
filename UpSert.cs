@@ -146,7 +146,8 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write("> model)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t string sql = @\"insert into ");
+            this.Write("> model, IDbTransaction dbTransaction = null)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t " +
+                    "string sql = @\"insert into ");
             
             #line 54 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
@@ -174,9 +175,9 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write(" ;\";\r\n             result = conn.Execute(sql, model);\r\n             return result" +
-                    ";\r\n\t\t }\r\n\r\n\t\t /// <summary>\r\n\t\t/// 改，根据传入Model\r\n\t\t/// </summary>\r\n\t\t  public sta" +
-                    "tic int Update");
+            this.Write(" ;\";\r\n             result = conn.Execute(sql, model,dbTransaction);\r\n            " +
+                    " return result;\r\n\t\t }\r\n\r\n\t\t /// <summary>\r\n\t\t/// 改，根据传入Model\r\n\t\t/// </summary>\r\n" +
+                    "\t\t  public static int Update");
             
             #line 64 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
@@ -227,7 +228,8 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write("> model)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t string sql = @\"update ");
+            this.Write("> model, IDbTransaction dbTransaction = null)\r\n\t\t {\r\n\t\t     int result = 0;\r\n\t\t\t " +
+                    "string sql = @\"update ");
             
             #line 80 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
@@ -248,9 +250,9 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write("\";\r\n             result = conn.Execute(sql, model);\r\n\t\t\t return result;\r\n\t\t }\r\n\r\n" +
-                    "\t\t/// <summary>\r\n\t\t/// 删，根据传入Model\r\n\t\t/// </summary>\r\n\t\tpublic static int Delete" +
-                    "");
+            this.Write("\";\r\n             result = conn.Execute(sql, model,dbTransaction);\r\n\t\t\t return res" +
+                    "ult;\r\n\t\t }\r\n\r\n\t\t/// <summary>\r\n\t\t/// 删，根据传入Model\r\n\t\t/// </summary>\r\n\t\tpublic sta" +
+                    "tic int Delete");
             
             #line 90 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
@@ -294,7 +296,8 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write("> model)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring sql = @\"delete from ");
+            this.Write("> model, IDbTransaction dbTransaction = null)\r\n\t\t{\r\n\t\t\tint result = 0;\r\n\t\t\tstring" +
+                    " sql = @\"delete from ");
             
             #line 104 "D:\GenerateTool\MySQLSchemaProvider\TCM.Mysql.CodeGenerate\UpSert.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
@@ -308,8 +311,8 @@ namespace TCM.APIService.DAL
             
             #line default
             #line hidden
-            this.Write(";\";\r\n            result = conn.Execute(sql, model);\r\n\t\t\treturn result;\r\n\t\t}\t\r\n   " +
-                    " }\r\n\t\r\n}");
+            this.Write(";\";\r\n            result = conn.Execute(sql, model,dbTransaction);\r\n\t\t\treturn resu" +
+                    "lt;\r\n\t\t}\t\r\n    }\r\n\t\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

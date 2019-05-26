@@ -45,11 +45,19 @@ namespace TCM.Mysql.CodeGenerate
                 TableSchema[] tableSchemas = mySQLSchemaProvider.GetTables(connectionString, databaseSchema);
 
                 lv_tables.View = View.List;
-                foreach (var item in tableSchemas)
+                if (tableSchemas.Count() > 0)
                 {
-                    ListViewItem viewItem = new ListViewItem { Text = item.Name };
-                    lv_tables.Items.Add(viewItem);
+                    foreach (var item in tableSchemas)
+                    {
+                        ListViewItem viewItem = new ListViewItem { Text = item.Name };
+                        lv_tables.Items.Add(viewItem);
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("请检查字符串，没有找到数据表");
+                }
+
             }
             catch (Exception ex)
             {

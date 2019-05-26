@@ -48,13 +48,13 @@ namespace TCM.APIService.DAL
 		 /// <summary>
 		 /// 批量新增，根据传入Model
 		 /// </summary>
-         public static int Add<#=tableName#>(this IDbConnection conn, List<<#=tableName#>> model)
+         public static int Add<#=tableName#>(this IDbConnection conn, List<<#=tableName#>> model, IDbTransaction dbTransaction = null)
 		 {
 		     int result = 0;
 			 string sql = @"insert into <#=tableName#>(<#= string.Join(",",CodeHelper.GetSqlInsertInto(Columns)) #>) 
              values(<#= string.Join(",",CodeHelper.GetSqlInsertValue(Columns)) #>)on duplicate key update 
                      <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #> ;";
-             result = conn.Execute(sql, model);
+             result = conn.Execute(sql, model,dbTransaction);
              return result;
 		 }
 
@@ -74,13 +74,13 @@ namespace TCM.APIService.DAL
 		  /// <summary>
 		/// 批量修改，根据传入Model
 		/// </summary>
-		 public static int Update<#=tableName#>(this IDbConnection conn,List<<#=tableName#>> model)
+		 public static int Update<#=tableName#>(this IDbConnection conn,List<<#=tableName#>> model, IDbTransaction dbTransaction = null)
 		 {
 		     int result = 0;
 			 string sql = @"update <#=tableName#> 
                      set <#= string.Join(",",CodeHelper.GetSqlUpdateSet(Columns)) #>
                      where <#= string.Join(" and ",CodeHelper.GetSqlWhereId(Columns)) #>";
-             result = conn.Execute(sql, model);
+             result = conn.Execute(sql, model,dbTransaction);
 			 return result;
 		 }
 
@@ -98,11 +98,11 @@ namespace TCM.APIService.DAL
 		/// <summary>
 		/// 批量删除，根据传入Model
 		/// </summary>
-		public static int Delete<#=tableName#>ById(this IDbConnection conn,List<<#=tableName#>> model)
+		public static int Delete<#=tableName#>ById(this IDbConnection conn,List<<#=tableName#>> model, IDbTransaction dbTransaction = null)
 		{
 			int result = 0;
 			string sql = @"delete from <#= tableName#> WHERE <#= string.Join(" AND ",CodeHelper.GetSqlWhereId(Columns)) #>;";
-            result = conn.Execute(sql, model);
+            result = conn.Execute(sql, model,dbTransaction);
 			return result;
 		}	
     }
